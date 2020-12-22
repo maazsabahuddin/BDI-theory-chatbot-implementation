@@ -357,7 +357,7 @@ class BDIChat(MethodView):
             answer = payload.get('answer')
             answer_value = payload.get('answer_value')
 
-            if not (question_no and answer and answer_value):
+            if not (question_no and answer):
                 return jsonify({
                     'status': status.HTTP_400_BAD_REQUEST,
                     'message': 'Missing Fields.'
@@ -515,6 +515,13 @@ class Chatting(MethodView):
             user_chat_bot_obj.chat_timestamp = local_timezone_conversion(datetime.datetime.now())
             user_chat_bot_obj.save()
 
+            if question_sequence:
+                return jsonify({
+                    'status': status.HTTP_200_OK,
+                    'response': bdi_responses_list,
+                    'question_no': question_sequence+1,
+                    'bot': answer_generate
+                })
             return jsonify({
                 'status': status.HTTP_200_OK,
                 'response': bdi_responses_list,

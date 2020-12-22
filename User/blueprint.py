@@ -26,3 +26,6 @@ my_view.add_url_rule("/questions/", view_func=GetQuestions.as_view('get_question
 
 from ChatbotIntegration.views import BDIChat
 my_view.add_url_rule("/bdi/chatting/", view_func=BDIChat.as_view('bdi_question_answer'))
+
+from BDI.views import UserStatistics
+my_view.add_url_rule("/bdi/depression/check/", view_func=UserStatistics.as_view('bdi_depression_score'))
